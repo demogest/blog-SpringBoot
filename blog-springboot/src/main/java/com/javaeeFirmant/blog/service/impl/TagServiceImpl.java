@@ -28,10 +28,14 @@ import java.util.Objects;
  */
 @Service
 public class TagServiceImpl extends ServiceImpl<TagDao, Tag> implements TagService {
+    private final TagDao tagDao;
+    private final ArticleTagDao articleTagDao;
+
     @Autowired
-    private TagDao tagDao;
-    @Autowired
-    private ArticleTagDao articleTagDao;
+    public TagServiceImpl (TagDao tagDao, ArticleTagDao articleTagDao) {
+        this.tagDao = tagDao;
+        this.articleTagDao = articleTagDao;
+    }
 
     @Override
     public PageResult<TagDTO> listTags() {

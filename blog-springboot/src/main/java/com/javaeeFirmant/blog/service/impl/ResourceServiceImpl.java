@@ -28,12 +28,16 @@ import java.util.stream.Collectors;
  */
 @Service
 public class ResourceServiceImpl extends ServiceImpl<ResourceDao, Resource> implements ResourceService {
+    private final ResourceDao resourceDao;
+    private final RoleResourceDao roleResourceDao;
+    private final FilterInvocationSecurityMetadataSourceImpl filterInvocationSecurityMetadataSource;
+
     @Autowired
-    private ResourceDao resourceDao;
-    @Autowired
-    private RoleResourceDao roleResourceDao;
-    @Autowired
-    private FilterInvocationSecurityMetadataSourceImpl filterInvocationSecurityMetadataSource;
+    public ResourceServiceImpl(ResourceDao resourceDao, RoleResourceDao roleResourceDao, FilterInvocationSecurityMetadataSourceImpl filterInvocationSecurityMetadataSource) {
+        this.resourceDao = resourceDao;
+        this.roleResourceDao = roleResourceDao;
+        this.filterInvocationSecurityMetadataSource = filterInvocationSecurityMetadataSource;
+    }
 
 
     @Override

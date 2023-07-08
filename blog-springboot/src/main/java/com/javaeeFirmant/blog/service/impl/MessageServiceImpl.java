@@ -35,12 +35,16 @@ import java.util.stream.Collectors;
  */
 @Service
 public class MessageServiceImpl extends ServiceImpl<MessageDao, Message> implements MessageService {
+    private final MessageDao messageDao;
+    private final HttpServletRequest request;
+    private final BlogInfoService blogInfoService;
+
     @Autowired
-    private MessageDao messageDao;
-    @Resource
-    private HttpServletRequest request;
-    @Autowired
-    private BlogInfoService blogInfoService;
+    public MessageServiceImpl(MessageDao messageDao, HttpServletRequest request, BlogInfoService blogInfoService) {
+        this.messageDao = messageDao;
+        this.request = request;
+        this.blogInfoService = blogInfoService;
+    }
 
     @Override
     public void saveMessage(MessageVO messageVO) {

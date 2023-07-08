@@ -48,16 +48,20 @@ import static com.javaeeFirmant.blog.enums.UserAreaTypeEnum.getUserAreaType;
  * 用户账号服务 */
 @Service
 public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> implements UserAuthService {
-    @Autowired
     private RedisService redisService;
-    @Autowired
     private UserAuthDao userAuthDao;
-    @Autowired
     private UserRoleDao userRoleDao;
-    @Autowired
     private UserInfoDao userInfoDao;
-    @Autowired
     private BlogInfoService blogInfoService;
+
+    @Autowired
+    public UserAuthServiceImpl(UserAuthDao userAuthDao, UserRoleDao userRoleDao, UserInfoDao userInfoDao, RedisService redisService, BlogInfoService blogInfoService) {
+        this.userAuthDao = userAuthDao;
+        this.userRoleDao = userRoleDao;
+        this.userInfoDao = userInfoDao;
+        this.redisService = redisService;
+        this.blogInfoService = blogInfoService;
+    }
 
     @Override
     public List<UserAreaDTO> listUserAreas(ConditionVO conditionVO) {

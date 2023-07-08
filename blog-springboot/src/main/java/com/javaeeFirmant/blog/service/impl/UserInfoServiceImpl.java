@@ -35,16 +35,25 @@ import static com.javaeeFirmant.blog.util.PageUtils.getSize;
  * 用户信息服务 */
 @Service
 public class UserInfoServiceImpl extends ServiceImpl<UserInfoDao, UserInfo> implements UserInfoService {
-    @Autowired
     private UserInfoDao userInfoDao;
-    @Autowired
     private UserRoleService userRoleService;
-    @Autowired
     private SessionRegistry sessionRegistry;
-    @Autowired
     private UploadStrategyContext uploadStrategyContext;
 
+    @Autowired
+    public UserInfoServiceImpl(UserInfoDao userInfoDao, UserRoleService userRoleService, SessionRegistry sessionRegistry, UploadStrategyContext uploadStrategyContext) {
+        this.userInfoDao = userInfoDao;
+        this.userRoleService = userRoleService;
+        this.sessionRegistry = sessionRegistry;
+        this.uploadStrategyContext = uploadStrategyContext;
+    }
 
+
+    /**
+     * 更新用户信息
+     *
+     * @param userInfoVO 用户信息
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void updateUserInfo(UserInfoVO userInfoVO) {
@@ -58,6 +67,11 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoDao, UserInfo> impl
         userInfoDao.updateById(userInfo);
     }
 
+    /**
+     * 上传用户头像
+     *
+     * @param file 头像文件
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public String updateUserAvatar(MultipartFile file) {
@@ -72,6 +86,11 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoDao, UserInfo> impl
         return avatar;
     }
 
+    /**
+     * 更新用户角色
+     *
+     * @param userRoleVO 更新用户角色
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void updateUserRole(UserRoleVO userRoleVO) {
@@ -93,6 +112,11 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoDao, UserInfo> impl
         userRoleService.saveBatch(userRoleList);
     }
 
+    /**
+     * 更新用户禁用状态
+     *
+     * @param userDisableVO 用户禁用信息
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void updateUserDisable(UserDisableVO userDisableVO) {
@@ -104,6 +128,12 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoDao, UserInfo> impl
         userInfoDao.updateById(userInfo);
     }
 
+    /**
+     * 获取在线用户
+     *
+     * @param conditionVO 条件
+     * @return 在线用户列表
+     */
     @Override
     public PageResult<UserOnlineDTO> listOnlineUsers(ConditionVO conditionVO) {
         // 获取security在线session
@@ -121,6 +151,11 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoDao, UserInfo> impl
         return new PageResult<>(userOnlineList, userOnlineDTOList.size());
     }
 
+    /**
+     * 强制用户下线
+     *
+     * @param userInfoId 用户信息id
+     */
     @Override
     public void removeOnlineUser(Integer userInfoId) {
         // 获取用户session
@@ -134,6 +169,11 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoDao, UserInfo> impl
         allSessions.forEach(SessionInformation::expireNow);
     }
 
+    /**
+     * 删除用户
+     *
+     * @param userInfoId 用户信息id
+     */
     @Override
     public void deleteUser(Integer userInfoId) {
         // 删除用户

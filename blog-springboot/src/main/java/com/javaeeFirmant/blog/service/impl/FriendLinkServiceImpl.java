@@ -24,8 +24,12 @@ import java.util.List;
  * 友情链接服务 */
 @Service
 public class FriendLinkServiceImpl extends ServiceImpl<FriendLinkDao, FriendLink> implements FriendLinkService {
+    private final FriendLinkDao friendLinkDao;
+
     @Autowired
-    private FriendLinkDao friendLinkDao;
+    public FriendLinkServiceImpl(FriendLinkDao friendLinkDao) {
+        this.friendLinkDao = friendLinkDao;
+    }
 
     @Override
     public List<FriendLinkDTO> listFriendLinks() {

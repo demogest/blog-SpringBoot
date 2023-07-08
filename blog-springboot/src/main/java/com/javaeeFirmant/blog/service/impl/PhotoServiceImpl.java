@@ -32,10 +32,14 @@ import static com.javaeeFirmant.blog.enums.PhotoAlbumStatusEnum.PUBLIC;
  */
 @Service
 public class PhotoServiceImpl extends ServiceImpl<PhotoDao, Photo> implements PhotoService {
-    @Autowired
     private PhotoDao photoDao;
-    @Autowired
     private PhotoAlbumService photoAlbumService;
+
+    @Autowired
+    public PhotoServiceImpl(PhotoDao photoDao, PhotoAlbumService photoAlbumService) {
+        this.photoDao = photoDao;
+        this.photoAlbumService = photoAlbumService;
+    }
 
     @Override
     public PageResult<PhotoBackDTO> listPhotos(ConditionVO condition) {

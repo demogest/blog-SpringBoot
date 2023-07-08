@@ -29,10 +29,14 @@ import static com.javaeeFirmant.blog.enums.ZoneEnum.SHANGHAI;
  * 访问量统计服务 */
 @Service
 public class UniqueViewServiceImpl extends ServiceImpl<UniqueViewDao, UniqueView> implements UniqueViewService {
+    private final RedisService redisService;
+    private final UniqueViewDao uniqueViewDao;
+
     @Autowired
-    private RedisService redisService;
-    @Autowired
-    private UniqueViewDao uniqueViewDao;
+    public UniqueViewServiceImpl(RedisService redisService, UniqueViewDao uniqueViewDao) {
+        this.redisService = redisService;
+        this.uniqueViewDao = uniqueViewDao;
+    }
 
     @Override
     public List<UniqueViewDTO> listUniqueViews() {

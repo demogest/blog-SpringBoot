@@ -27,12 +27,16 @@ import java.util.stream.Collectors;
  */
 @Service
 public class CommentServiceImpl extends ServiceImpl<CommentDao, Comment> implements CommentService {
+    private final CommentDao commentDao;
+    private final RedisService redisService;
+    private final BlogInfoService blogInfoService;
+
     @Autowired
-    private CommentDao commentDao;
-    @Autowired
-    private RedisService redisService;
-    @Autowired
-    private BlogInfoService blogInfoService;
+    public CommentServiceImpl(CommentDao commentDao, RedisService redisService, BlogInfoService blogInfoService) {
+        this.commentDao = commentDao;
+        this.redisService = redisService;
+        this.blogInfoService = blogInfoService;
+    }
 
     /**
      * 网站网址

@@ -35,16 +35,20 @@ import java.util.stream.Collectors;
  */
 @Service
 public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements RoleService {
+    private final RoleDao roleDao;
+    private final RoleResourceService roleResourceService;
+    private final RoleMenuService roleMenuService;
+    private final UserRoleDao userRoleDao;
+    private final FilterInvocationSecurityMetadataSourceImpl filterInvocationSecurityMetadataSource;
+
     @Autowired
-    private RoleDao roleDao;
-    @Autowired
-    private RoleResourceService roleResourceService;
-    @Autowired
-    private RoleMenuService roleMenuService;
-    @Autowired
-    private UserRoleDao userRoleDao;
-    @Autowired
-    private FilterInvocationSecurityMetadataSourceImpl filterInvocationSecurityMetadataSource;
+    public RoleServiceImpl (RoleDao roleDao, RoleResourceService roleResourceService, RoleMenuService roleMenuService, UserRoleDao userRoleDao, FilterInvocationSecurityMetadataSourceImpl filterInvocationSecurityMetadataSource) {
+        this.roleDao = roleDao;
+        this.roleResourceService = roleResourceService;
+        this.roleMenuService = roleMenuService;
+        this.userRoleDao = userRoleDao;
+        this.filterInvocationSecurityMetadataSource = filterInvocationSecurityMetadataSource;
+    }
 
     @Override
     public List<UserRoleDTO> listUserRoles() {

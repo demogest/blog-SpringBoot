@@ -33,17 +33,27 @@ import static com.javaeeFirmant.blog.enums.ZoneEnum.SHANGHAI;
  * 用户详细信息服务 */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    @Autowired
-    private UserAuthDao userAuthDao;
-    @Autowired
-    private UserInfoDao userInfoDao;
-    @Autowired
-    private RoleDao roleDao;
-    @Autowired
-    private RedisService redisService;
-    @Resource
-    private HttpServletRequest request;
+    private final UserAuthDao userAuthDao;
+    private final UserInfoDao userInfoDao;
+    private final RoleDao roleDao;
+    private final RedisService redisService;
+    private final HttpServletRequest request;
 
+    @Autowired
+    public UserDetailsServiceImpl(UserAuthDao userAuthDao, UserInfoDao userInfoDao, RoleDao roleDao, RedisService redisService, HttpServletRequest request) {
+        this.userAuthDao = userAuthDao;
+        this.userInfoDao = userInfoDao;
+        this.roleDao = roleDao;
+        this.redisService = redisService;
+        this.request = request;
+    }
+
+    /**
+     * 根据用户名查询用户信息
+     *
+     * @param username 用户名
+     * @return 用户信息
+     */
     @Override
     public UserDetails loadUserByUsername(String username) {
         if (StringUtils.isBlank(username)) {

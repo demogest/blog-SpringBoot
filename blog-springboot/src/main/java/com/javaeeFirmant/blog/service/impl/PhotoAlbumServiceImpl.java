@@ -33,10 +33,14 @@ import static com.javaeeFirmant.blog.enums.PhotoAlbumStatusEnum.PUBLIC;
  */
 @Service
 public class PhotoAlbumServiceImpl extends ServiceImpl<PhotoAlbumDao, PhotoAlbum> implements PhotoAlbumService {
-    @Autowired
     private PhotoAlbumDao photoAlbumDao;
-    @Autowired
     private PhotoDao photoDao;
+
+    @Autowired
+    public PhotoAlbumServiceImpl(PhotoAlbumDao photoAlbumDao, PhotoDao photoDao) {
+        this.photoAlbumDao = photoAlbumDao;
+        this.photoDao = photoDao;
+    }
 
     @Transactional(rollbackFor = Exception.class)
     @Override

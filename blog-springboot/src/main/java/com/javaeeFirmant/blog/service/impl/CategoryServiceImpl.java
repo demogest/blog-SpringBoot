@@ -29,10 +29,14 @@ import java.util.Objects;
  */
 @Service
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, Category> implements CategoryService {
+    private final CategoryDao categoryDao;
+    private final ArticleDao articleDao;
+
     @Autowired
-    private CategoryDao categoryDao;
-    @Autowired
-    private ArticleDao articleDao;
+    public CategoryServiceImpl(CategoryDao categoryDao, ArticleDao articleDao) {
+        this.categoryDao = categoryDao;
+        this.articleDao = articleDao;
+    }
 
     @Override
     public PageResult<CategoryDTO> listCategories() {

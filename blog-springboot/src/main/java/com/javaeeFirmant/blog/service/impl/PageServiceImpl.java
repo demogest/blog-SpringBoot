@@ -21,10 +21,14 @@ import java.util.Objects;
  * 页面服务 */
 @Service
 public class PageServiceImpl extends ServiceImpl<PageDao, Page> implements PageService {
-    @Autowired
     private RedisService redisService;
-    @Autowired
     private PageDao pageDao;
+
+    @Autowired
+    public PageServiceImpl(RedisService redisService, PageDao pageDao) {
+        this.redisService = redisService;
+        this.pageDao = pageDao;
+    }
 
     @Transactional(rollbackFor = Exception.class)
     @Override

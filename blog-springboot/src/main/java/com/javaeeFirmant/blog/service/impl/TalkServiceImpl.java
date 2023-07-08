@@ -32,12 +32,16 @@ import static com.javaeeFirmant.blog.enums.TalkStatusEnum.PUBLIC;
  */
 @Service
 public class TalkServiceImpl extends ServiceImpl<TalkDao, Talk> implements TalkService {
+    private final TalkDao talkDao;
+    private final CommentDao commentDao;
+    private final RedisService redisService;
+
     @Autowired
-    private TalkDao talkDao;
-    @Autowired
-    private CommentDao commentDao;
-    @Autowired
-    private RedisService redisService;
+    public TalkServiceImpl (TalkDao talkDao, CommentDao commentDao, RedisService redisService) {
+        this.talkDao = talkDao;
+        this.commentDao = commentDao;
+        this.redisService = redisService;
+    }
 
     @Override
     public List<String> listHomeTalks() {

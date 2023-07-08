@@ -38,26 +38,30 @@ import static com.javaeeFirmant.blog.enums.ArticleStatusEnum.PUBLIC;
  */
 @Service
 public class BlogInfoServiceImpl implements BlogInfoService {
+    private final UserInfoDao userInfoDao;
+    private final ArticleDao articleDao;
+    private final CategoryDao categoryDao;
+    private final TagDao tagDao;
+    private final MessageDao messageDao;
+    private final UniqueViewService uniqueViewService;
+    private final RedisService redisService;
+    private final WebsiteConfigDao websiteConfigDao;
+    private final HttpServletRequest request;
+    private final PageService pageService;
+
     @Autowired
-    private UserInfoDao userInfoDao;
-    @Autowired
-    private ArticleDao articleDao;
-    @Autowired
-    private CategoryDao categoryDao;
-    @Autowired
-    private TagDao tagDao;
-    @Autowired
-    private MessageDao messageDao;
-    @Autowired
-    private UniqueViewService uniqueViewService;
-    @Autowired
-    private RedisService redisService;
-    @Autowired
-    private WebsiteConfigDao websiteConfigDao;
-    @Resource
-    private HttpServletRequest request;
-    @Autowired
-    private PageService pageService;
+    public BlogInfoServiceImpl(UserInfoDao userInfoDao, ArticleDao articleDao, CategoryDao categoryDao, TagDao tagDao, MessageDao messageDao, UniqueViewService uniqueViewService, RedisService redisService, WebsiteConfigDao websiteConfigDao, HttpServletRequest request, PageService pageService) {
+        this.userInfoDao = userInfoDao;
+        this.articleDao = articleDao;
+        this.categoryDao = categoryDao;
+        this.tagDao = tagDao;
+        this.messageDao = messageDao;
+        this.uniqueViewService = uniqueViewService;
+        this.redisService = redisService;
+        this.websiteConfigDao = websiteConfigDao;
+        this.request = request;
+        this.pageService = pageService;
+    }
 
     @Override
     public BlogHomeInfoDTO getBlogHomeInfo() {

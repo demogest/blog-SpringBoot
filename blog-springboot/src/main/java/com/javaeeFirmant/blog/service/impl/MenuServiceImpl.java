@@ -32,10 +32,14 @@ import static com.javaeeFirmant.blog.constant.CommonConst.COMPONENT;
  */
 @Service
 public class MenuServiceImpl extends ServiceImpl<MenuDao, Menu> implements MenuService {
+    private final MenuDao menuDao;
+    private final RoleMenuDao roleMenuDao;
+
     @Autowired
-    private MenuDao menuDao;
-    @Autowired
-    private RoleMenuDao roleMenuDao;
+    public MenuServiceImpl(MenuDao menuDao, RoleMenuDao roleMenuDao) {
+        this.menuDao = menuDao;
+        this.roleMenuDao = roleMenuDao;
+    }
 
     /**
      * 查看菜单列表

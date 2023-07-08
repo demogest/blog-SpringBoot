@@ -28,6 +28,7 @@ import com.javaeeFirmant.blog.util.BeanCopyUtils;
 import com.javaeeFirmant.blog.util.CommonUtils;
 import com.javaeeFirmant.blog.util.PageUtils;
 import com.javaeeFirmant.blog.util.UserUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,29 +48,35 @@ import static com.javaeeFirmant.blog.enums.ArticleStatusEnum.PUBLIC;
  * 文章服务 */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> implements ArticleService {
-    @Autowired
+
     private ArticleDao articleDao;
-    @Autowired
     private CategoryDao categoryDao;
-    @Autowired
     private TagDao tagDao;
-    @Autowired
     private TagService tagService;
-    @Autowired
     private ArticleTagDao articleTagDao;
-    @Autowired
     private SearchStrategyContext searchStrategyContext;
-    @Autowired
     private HttpSession session;
-    @Autowired
     private RedisService redisService;
-    @Autowired
     private ArticleTagService articleTagService;
-    @Autowired
     private BlogInfoService blogInfoService;
-    @Autowired
     private UploadStrategyContext uploadStrategyContext;
+
+    @Autowired
+    public ArticleServiceImpl(ArticleDao articleDao, CategoryDao categoryDao, TagDao tagDao, TagService tagService, ArticleTagDao articleTagDao, SearchStrategyContext searchStrategyContext, HttpSession session, RedisService redisService, ArticleTagService articleTagService, BlogInfoService blogInfoService, UploadStrategyContext uploadStrategyContext) {
+        this.articleDao = articleDao;
+        this.categoryDao = categoryDao;
+        this.tagDao = tagDao;
+        this.tagService = tagService;
+        this.articleTagDao = articleTagDao;
+        this.searchStrategyContext = searchStrategyContext;
+        this.session = session;
+        this.redisService = redisService;
+        this.articleTagService = articleTagService;
+        this.blogInfoService = blogInfoService;
+        this.uploadStrategyContext = uploadStrategyContext;
+    }
 
     @Override
     public PageResult<ArchiveDTO> listArchives() {
